@@ -169,379 +169,388 @@ class _SellPageState extends State<SellPage> {
                 ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/stockicon.svg',
-                        color: Clr().white,
-                      ),
-                      SizedBox(width: Dim().d8),
-                      SvgPicture.asset(
-                        'assets/stockstatus.svg',
-                        color: Clr().white,
-                      ),
-                    ],
-                  ),
-                  StreamBuilder(
-                      stream: stream,
-                      builder: (context, AsyncSnapshot snapshot) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${DateFormat('dd MMMM yyyy').format(DateTime.parse(widget.details['buy_at']))}',
-                              style: Sty().smallText.copyWith(
-                                    color: Clr().white,
-                                    fontWeight: FontWeight.w200,
-                                  ),
-                            ),
-                            SizedBox(height: Dim().d4),
-                            Text(
-                              '${DateFormat('h:mm a').format(DateTime.parse(widget.details['buy_at']))}',
-                              style: Sty().smallText.copyWith(
-                                    color: Clr().white,
-                                    fontWeight: FontWeight.w200,
-                                  ),
-                            ),
-                          ],
-                        );
-                      })
-                ],
-              ),
-              SizedBox(height: Dim().d12),
-              Divider(
-                color: Color(0xff6C6C6C),
-                thickness: 1,
-              ),
-              SizedBox(height: Dim().d20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Buy Price',
-                    style: Sty().microText.copyWith(color: Clr().grey),
-                  ),
-                  Text(
-                    'Quantity',
-                    style: Sty().microText.copyWith(color: Clr().grey),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Dim().d8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    ' ₹ ${widget.details['buying_price']}',
-                    style: Sty().smallText.copyWith(color: Clr().textcolor),
-                  ),
-                  Text(
-                    '${widget.details['quantity']}',
-                    style: Sty().smallText.copyWith(color: Clr().textcolor),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Dim().d20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Leverage',
-                    style: Sty().microText.copyWith(color: Clr().grey),
-                  ),
-                  Text(
-                    'Leverage Amount',
-                    style: Sty().microText.copyWith(color: Clr().grey),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Dim().d8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${widget.details['leverage']}x',
-                    style: Sty().smallText.copyWith(color: Clr().textcolor),
-                  ),
-                  Text(
-                    '₹ ${widget.details['leverage_amount']}',
-                    style: Sty().smallText.copyWith(color: Clr().textcolor),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Dim().d20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Pre-Payment',
-                    style: Sty().microText.copyWith(color: Clr().grey),
-                  ),
-                  Text(
-                    'Market Value',
-                    style: Sty().microText.copyWith(color: Clr().grey),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: Dim().d8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '₹ ${prepayment}',
-                    style: Sty().smallText.copyWith(color: Clr().textcolor),
-                  ),
-                  Text(
-                    '₹ ${(widget.details['buying_price'] * widget.details['quantity']).toString().contains('.') ? double.parse((widget.details['buying_price'] * widget.details['quantity']).toString()).toStringAsFixed(2) : (widget.details['buying_price'] * widget.details['quantity'])}',
-                    style: Sty().smallText.copyWith(color: Clr().textcolor),
-                  ),
-                ],
-              ),
-              SizedBox(height: Dim().d28),
-              Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xffC2C2C2), width: 0.6),
-                    borderRadius: BorderRadius.circular(Dim().d12),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(Dim().d14),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          return Future.delayed(const Duration(seconds: 3), () {
+            setState(() {
+              apitype();
+            });
+          });
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
-                        RichText(
-                            text: TextSpan(
-                                text: 'Floating P/L:- ',
-                                style: Sty()
-                                    .mediumText
-                                    .copyWith(color: Clr().grey),
-                                children: [
-                              TextSpan(
-                                  text:
-                                      '₹ ${widget.details['floating_p_l'].toString().contains('.') ? double.parse(widget.details['floating_p_l'].toString()).toStringAsFixed(2) : widget.details['floating_p_l'].toString()} (${widget.details['floating_p_l_percent'].toString().contains('.') ? double.parse(widget.details['floating_p_l_percent'].toString()).toStringAsFixed(2) : widget.details['floating_p_l_percent'].toString()}%)',
-                                  style: Sty().mediumText.copyWith(
-                                        color: Clr().white,
-                                      ))
-                            ])),
-                        SizedBox(height: Dim().d12),
-                        RichText(
-                            text: TextSpan(
-                                text: 'Transaction Fees:- ',
-                                style: Sty()
-                                    .mediumText
-                                    .copyWith(color: Clr().grey),
-                                children: [
-                              TextSpan(
-                                  text:
-                                      '₹ ${widget.details['transaction_fee'].toString().contains('.') ? double.parse(widget.details['transaction_fee'].toString()).toStringAsFixed(2) : widget.details['transaction_fee'].toString()}',
-                                  style: Sty().mediumText.copyWith(
-                                        color: Clr().white,
-                                      ))
-                            ])),
-                        SizedBox(height: Dim().d12),
-                        RichText(
-                            text: TextSpan(
-                                text: 'Deferred Fees:- ',
-                                style: Sty()
-                                    .mediumText
-                                    .copyWith(color: Clr().grey),
-                                children: [
-                              TextSpan(
-                                  text:
-                                      '₹ ${widget.details['deffered_fee'].toString().contains('.') ? double.parse(widget.details['deffered_fee'].toString()).toStringAsFixed(2) : widget.details['deffered_fee'].toString()}',
-                                  style: Sty().mediumText.copyWith(
-                                        color: Clr().white,
-                                      ))
-                            ])),
-                        SizedBox(height: Dim().d12),
-                        RichText(
-                            text: TextSpan(
-                                text: 'Net Floating P/L:- ',
-                                style: Sty()
-                                    .mediumText
-                                    .copyWith(color: Clr().grey),
-                                children: [
-                              TextSpan(
-                                  text:
-                                      '₹ ${widget.details['net_floating_p_l'].toString().contains('.') ? double.parse(widget.details['net_floating_p_l'].toString()).toStringAsFixed(2) : widget.details['net_floating_p_l'].toString()} (${widget.details['net_floating_p_l_percent'].toString().contains('.') ? double.parse(widget.details['net_floating_p_l_percent'].toString()).toStringAsFixed(2) : widget.details['net_floating_p_l_percent'].toString()}%)',
-                                  style: Sty().mediumText.copyWith(
-                                        color: Clr().white,
-                                      ))
-                            ])),
+                        SvgPicture.asset(
+                          'assets/stockicon.svg',
+                          color: Clr().white,
+                        ),
+                        SizedBox(width: Dim().d8),
+                        SvgPicture.asset(
+                          'assets/stockstatus.svg',
+                          color: Clr().white,
+                        ),
                       ],
                     ),
-                  )),
-              SizedBox(height: Dim().d32),
-              Row(
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.fromLTRB(5, 20, 5, 20),
-                          padding: EdgeInsets.only(bottom: 10),
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(width: 1, color: Color(0xff278225)),
-                            borderRadius: BorderRadius.circular(12),
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: Dim().d12),
-                                Text('Lost Value',
-                                    style: Sty()
-                                        .mediumText
-                                        .copyWith(color: Clr().grey)),
-                                SizedBox(height: Dim().d4),
-                                Text(
-                                    '₹ ${widget.details['stop_loss_limit']} (${widget.details['stop_loss_limit_percentage'].toString().contains('.') ? double.parse(widget.details['stop_loss_limit_percentage'].toString()).toStringAsFixed(2) : widget.details['stop_loss_limit_percentage'].toString()}%)',
+                    StreamBuilder(
+                        stream: stream,
+                        builder: (context, AsyncSnapshot snapshot) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${DateFormat('dd MMMM yyyy').format(DateTime.parse(widget.details['buy_at']))}',
+                                style: Sty().smallText.copyWith(
+                                      color: Clr().white,
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                              ),
+                              SizedBox(height: Dim().d4),
+                              Text(
+                                '${DateFormat('h:mm a').format(DateTime.parse(widget.details['buy_at']))}',
+                                style: Sty().smallText.copyWith(
+                                      color: Clr().white,
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                              ),
+                            ],
+                          );
+                        })
+                  ],
+                ),
+                SizedBox(height: Dim().d12),
+                Divider(
+                  color: Color(0xff6C6C6C),
+                  thickness: 1,
+                ),
+                SizedBox(height: Dim().d20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Buy Price',
+                      style: Sty().microText.copyWith(color: Clr().grey),
+                    ),
+                    Text(
+                      'Quantity',
+                      style: Sty().microText.copyWith(color: Clr().grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Dim().d8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      ' ₹ ${widget.details['buying_price']}',
+                      style: Sty().smallText.copyWith(color: Clr().textcolor),
+                    ),
+                    Text(
+                      '${widget.details['quantity']}',
+                      style: Sty().smallText.copyWith(color: Clr().textcolor),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Dim().d20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Leverage',
+                      style: Sty().microText.copyWith(color: Clr().grey),
+                    ),
+                    Text(
+                      'Leverage Amount',
+                      style: Sty().microText.copyWith(color: Clr().grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Dim().d8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${widget.details['leverage']}x',
+                      style: Sty().smallText.copyWith(color: Clr().textcolor),
+                    ),
+                    Text(
+                      '₹ ${widget.details['leverage_amount']}',
+                      style: Sty().smallText.copyWith(color: Clr().textcolor),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Dim().d20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Pre-Payment',
+                      style: Sty().microText.copyWith(color: Clr().grey),
+                    ),
+                    Text(
+                      'Market Value',
+                      style: Sty().microText.copyWith(color: Clr().grey),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Dim().d8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '₹ ${prepayment}',
+                      style: Sty().smallText.copyWith(color: Clr().textcolor),
+                    ),
+                    Text(
+                      '₹ ${(widget.details['buying_price'] * widget.details['quantity']).toString().contains('.') ? double.parse((widget.details['buying_price'] * widget.details['quantity']).toString()).toStringAsFixed(2) : (widget.details['buying_price'] * widget.details['quantity'])}',
+                      style: Sty().smallText.copyWith(color: Clr().textcolor),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Dim().d28),
+                Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xffC2C2C2), width: 0.6),
+                      borderRadius: BorderRadius.circular(Dim().d12),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(Dim().d14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RichText(
+                              text: TextSpan(
+                                  text: 'Floating P/L:- ',
+                                  style: Sty()
+                                      .mediumText
+                                      .copyWith(color: Clr().grey),
+                                  children: [
+                                TextSpan(
+                                    text:
+                                        '₹ ${widget.details['floating_p_l'].toString().contains('.') ? double.parse(widget.details['floating_p_l'].toString()).toStringAsFixed(2) : widget.details['floating_p_l'].toString()} (${widget.details['floating_p_l_percent'].toString().contains('.') ? double.parse(widget.details['floating_p_l_percent'].toString()).toStringAsFixed(2) : widget.details['floating_p_l_percent'].toString()}%)',
                                     style: Sty().mediumText.copyWith(
                                           color: Clr().white,
                                         ))
-                              ],
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 20,
-                          top: 12,
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                            color: Clr().background,
-                            child: Text(
-                              'Stoploss Limit',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.fromLTRB(5, 20, 5, 20),
-                          padding: EdgeInsets.only(bottom: 10),
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(width: 1, color: Color(0xff278225)),
-                            borderRadius: BorderRadius.circular(5),
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: Dim().d12),
-                                Text('Profit Value',
-                                    style: Sty()
-                                        .mediumText
-                                        .copyWith(color: Clr().grey)),
-                                SizedBox(height: Dim().d4),
-                                Text(
-                                    '₹ ${widget.details['profit_limit']} (${widget.details['profit_limit_percentage'].toString().contains('.') ? double.parse(widget.details['profit_limit_percentage'].toString()).toStringAsFixed(2) : widget.details['profit_limit_percentage'].toString()}%)',
+                              ])),
+                          SizedBox(height: Dim().d12),
+                          RichText(
+                              text: TextSpan(
+                                  text: 'Transaction Fees:- ',
+                                  style: Sty()
+                                      .mediumText
+                                      .copyWith(color: Clr().grey),
+                                  children: [
+                                TextSpan(
+                                    text:
+                                        '₹ ${widget.details['transaction_fee'].toString().contains('.') ? double.parse(widget.details['transaction_fee'].toString()).toStringAsFixed(2) : widget.details['transaction_fee'].toString()}',
                                     style: Sty().mediumText.copyWith(
                                           color: Clr().white,
                                         ))
-                              ],
+                              ])),
+                          SizedBox(height: Dim().d12),
+                          RichText(
+                              text: TextSpan(
+                                  text: 'Deferred Fees:- ',
+                                  style: Sty()
+                                      .mediumText
+                                      .copyWith(color: Clr().grey),
+                                  children: [
+                                TextSpan(
+                                    text:
+                                        '₹ ${widget.details['deffered_fee'].toString().contains('.') ? double.parse(widget.details['deffered_fee'].toString()).toStringAsFixed(2) : widget.details['deffered_fee'].toString()}',
+                                    style: Sty().mediumText.copyWith(
+                                          color: Clr().white,
+                                        ))
+                              ])),
+                          SizedBox(height: Dim().d12),
+                          RichText(
+                              text: TextSpan(
+                                  text: 'Net Floating P/L:- ',
+                                  style: Sty()
+                                      .mediumText
+                                      .copyWith(color: Clr().grey),
+                                  children: [
+                                TextSpan(
+                                    text:
+                                        '₹ ${widget.details['net_floating_p_l'].toString().contains('.') ? double.parse(widget.details['net_floating_p_l'].toString()).toStringAsFixed(2) : widget.details['net_floating_p_l'].toString()} (${widget.details['net_floating_p_l_percent'].toString().contains('.') ? double.parse(widget.details['net_floating_p_l_percent'].toString()).toStringAsFixed(2) : widget.details['net_floating_p_l_percent'].toString()}%)',
+                                    style: Sty().mediumText.copyWith(
+                                          color: Clr().white,
+                                        ))
+                              ])),
+                        ],
+                      ),
+                    )),
+                SizedBox(height: Dim().d32),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.fromLTRB(5, 20, 5, 20),
+                            padding: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, color: Color(0xff278225)),
+                              borderRadius: BorderRadius.circular(12),
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: Dim().d12),
+                                  Text('Lost Value',
+                                      style: Sty()
+                                          .mediumText
+                                          .copyWith(color: Clr().grey)),
+                                  SizedBox(height: Dim().d4),
+                                  Text(
+                                      '₹ ${widget.details['stop_loss_limit']} (${widget.details['stop_loss_limit_percentage'].toString().contains('.') ? double.parse(widget.details['stop_loss_limit_percentage'].toString()).toStringAsFixed(2) : widget.details['stop_loss_limit_percentage'].toString()}%)',
+                                      style: Sty().mediumText.copyWith(
+                                            color: Clr().white,
+                                          ))
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          left: 20,
-                          top: 12,
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                            color: Clr().background,
-                            child: Text(
-                              'Profit Limit',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
+                          Positioned(
+                            left: 20,
+                            top: 12,
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  bottom: 5, left: 10, right: 10),
+                              color: Clr().background,
+                              child: Text(
+                                'Stoploss Limit',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: Dim().d32),
-              Row(
-                children: [
-                  Expanded(
-                      child: InkWell(
-                    onTap: () {
-                      addFundlayout();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
+                    Expanded(
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.fromLTRB(5, 20, 5, 20),
+                            padding: EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, color: Color(0xff278225)),
+                              borderRadius: BorderRadius.circular(12),
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: Dim().d12),
+                                  Text('Profit Value',
+                                      style: Sty()
+                                          .mediumText
+                                          .copyWith(color: Clr().grey)),
+                                  SizedBox(height: Dim().d4),
+                                  Text(
+                                      '₹ ${widget.details['profit_limit']} (${widget.details['profit_limit_percentage'].toString().contains('.') ? double.parse(widget.details['profit_limit_percentage'].toString()).toStringAsFixed(2) : widget.details['profit_limit_percentage'].toString()}%)',
+                                      style: Sty().mediumText.copyWith(
+                                            color: Clr().white,
+                                          ))
+                                ],
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 20,
+                            top: 12,
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  bottom: 5, left: 10, right: 10),
+                              color: Clr().background,
+                              child: Text(
+                                'Profit Limit',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Dim().d32),
+                Row(
+                  children: [
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        addFundlayout();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dim().d8),
+                            color: Color(0xffF7F7F7),
+                            border: Border.all(color: Color(0xffC2C2C2))),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(Dim().d12),
+                            child: Text('Add Funds', style: Sty().mediumText),
+                          ),
+                        ),
+                      ),
+                    )),
+                    SizedBox(width: Dim().d16),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () {
+                        STM().redirect2page(
+                            ctx, SellPageFinal(details: widget.details));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(Dim().d8),
-                          color: Color(0xffF7F7F7),
-                          border: Border.all(color: Color(0xffC2C2C2))),
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(Dim().d12),
-                          child: Text('Add Funds', style: Sty().mediumText),
+                          color: Color(0xffFF4124),
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(Dim().d12),
+                            child: Text('Sell / Cancel',
+                                style: Sty()
+                                    .mediumText
+                                    .copyWith(color: Clr().white)),
+                          ),
                         ),
                       ),
-                    ),
-                  )),
-                  SizedBox(width: Dim().d16),
-                  Expanded(
-                      child: InkWell(
-                    onTap: () {
-                      STM().redirect2page(
-                          ctx, SellPageFinal(details: widget.details));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dim().d8),
-                        color: Color(0xffFF4124),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(Dim().d12),
-                          child: Text('Sell / Cancel',
-                              style: Sty()
-                                  .mediumText
-                                  .copyWith(color: Clr().white)),
-                        ),
-                      ),
-                    ),
-                  )),
-                ],
-              )
-            ],
+                    )),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

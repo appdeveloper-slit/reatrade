@@ -9,6 +9,7 @@ import 'package:upgrader/upgrader.dart';
 import 'buy_stock.dart';
 import 'sign_in.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Upgrader.clearSavedSettings();

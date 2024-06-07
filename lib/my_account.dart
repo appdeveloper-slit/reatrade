@@ -115,6 +115,7 @@ class _MyAccountState extends State<MyAccount> {
               ),
             ),
           ),
+          centerTitle: true,
           title: Text(
             'My Account',
             style: Sty()
@@ -934,10 +935,39 @@ class _MyAccountState extends State<MyAccount> {
                   height: 40,
                   child: ElevatedButton(
                       onPressed: () async {
-                        SharedPreferences sp =
-                            await SharedPreferences.getInstance();
-                        sp.clear();
-                        STM().finishAffinity(ctx, SignIn());
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Logout Account',
+                                    style: Sty().mediumBoldText),
+                                content: Text(
+                                    'Are you sure want to logout account?',
+                                    style: Sty().mediumText),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () async {
+                                        SharedPreferences sp =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        setState(() {
+                                          sp.clear();
+                                          STM().finishAffinity(ctx, SignIn());
+                                        });
+                                      },
+                                      child: Text('Yes',
+                                          style: Sty().smallText.copyWith(
+                                              fontWeight: FontWeight.w600))),
+                                  TextButton(
+                                      onPressed: () {
+                                        STM().back2Previous(ctx);
+                                      },
+                                      child: Text('No',
+                                          style: Sty().smallText.copyWith(
+                                              fontWeight: FontWeight.w600))),
+                                ],
+                              );
+                            });
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,

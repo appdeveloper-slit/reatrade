@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:storak/bank_details.dart';
@@ -198,7 +201,7 @@ class _VerificationState extends State<Verification> {
                           setState(() {
                             again = false;
                           });
-                          // resendOtp();
+                          resendotp();
                           // STM.checkInternet().then((value) {
                           //   if (value) {
                           //     sendOTP();
@@ -221,6 +224,20 @@ class _VerificationState extends State<Verification> {
             ),
           ),
         ));
+  }
+
+  void resendotp() async {
+    FormData body = FormData.fromMap({
+      'phone': widget.sMobile,
+    });
+    var result = await STM().post(ctx, Str().verifying, 'resend_otp', body);
+    var success = result['success'];
+    var message = result['message'];
+    if (success) {
+      STM().displayToast(message, ToastGravity.BOTTOM);
+    } else {
+      STM().errorDialog(ctx, message);
+    }
   }
 
   void verifyOtp() async {
@@ -258,7 +275,7 @@ class _VerificationState extends State<Verification> {
             });
             STM().finishAffinity(
                 ctx,
-                Home(
+                const Home(
                   b: true,
                 ));
             break;

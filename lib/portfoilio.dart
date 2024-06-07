@@ -63,7 +63,6 @@ class _PortfolioState extends State<Portfolio> {
               .format(amount / 1000)
               .toString() +
           ' K';
-      ;
     } else if (amount >= 100000) {
       // Convert to "Lakh" (hundreds of thousands) with Indian Rupee symbol (₹)
       return NumberFormat('#,##,##0.###', 'en_IN')

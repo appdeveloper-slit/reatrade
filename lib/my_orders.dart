@@ -99,34 +99,41 @@ class _MyOrdersState extends State<MyOrders> {
                 .copyWith(color: Clr().textcolor, fontWeight: FontWeight.w600),
           ),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(Dim().d16),
-          child: ordersList.isEmpty
-              ? check
-                  ? SizedBox(
-                      height: MediaQuery.of(ctx).size.height / 1.5,
-                      child: Center(
-                        child: Text("No Orders,Please buy some stocks!!!!",
-                            style: Sty()
-                                .mediumBoldText
-                                .copyWith(color: Clr().white)),
-                      ),
-                    )
-                  : Container()
-              : ListView.separated(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: ordersList.length,
-                  itemBuilder: (ctx, index) {
-                    return cardLayout(ctx, ordersList[index]);
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: Dim().d12,
-                    );
-                  },
-                ),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            Future.delayed(const Duration(seconds: 2), () {
+              apitype(apiname: 'my_orders', type: 'get');
+            });
+          },
+          child: Padding(
+            padding: EdgeInsets.all(Dim().d16),
+            child: ordersList.isEmpty
+                ? check
+                    ? SizedBox(
+                        height: MediaQuery.of(ctx).size.height / 1.5,
+                        child: Center(
+                          child: Text("No Orders,Please buy some stocks!!!!",
+                              style: Sty()
+                                  .mediumBoldText
+                                  .copyWith(color: Clr().white)),
+                        ),
+                      )
+                    : Container()
+                : ListView.separated(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: ordersList.length,
+                    itemBuilder: (ctx, index) {
+                      return cardLayout(ctx, ordersList[index]);
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: Dim().d12,
+                      );
+                    },
+                  ),
+          ),
         ),
       ),
     );
@@ -270,7 +277,7 @@ class _MyOrdersState extends State<MyOrders> {
                                   text: '${v['stock_trade']['deffered_fee']}',
                                   style: Sty()
                                       .smallText
-                                      .copyWith(color: Clr().grey))
+                                      .copyWith(color: Clr().white))
                             ]),
                       ),
                     SizedBox(
@@ -286,7 +293,7 @@ class _MyOrdersState extends State<MyOrders> {
                                   text: '${v['stock_trade']['leverage']}x',
                                   style: Sty()
                                       .smallText
-                                      .copyWith(color: Clr().grey))
+                                      .copyWith(color: Clr().white))
                             ]),
                       ),
                   ],
@@ -316,7 +323,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                   '${v['stock_trade']['leverage_amount']}',
                                               style: Sty()
                                                   .smallText
-                                                  .copyWith(color: Clr().grey))
+                                                  .copyWith(color: Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -350,7 +357,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                   '${v['stock_trade']['transaction_fee']}',
                                               style: Sty()
                                                   .smallText
-                                                  .copyWith(color: Clr().grey))
+                                                  .copyWith(color: Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -384,7 +391,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                   '${v['stock_trade']['in_hand_amount']}',
                                               style: Sty()
                                                   .smallText
-                                                  .copyWith(color: Clr().grey))
+                                                  .copyWith(color: Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -409,7 +416,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                   '${v['stock_trade']['additional_prepayment']}',
                                               style: Sty()
                                                   .smallText
-                                                  .copyWith(color: Clr().grey))
+                                                  .copyWith(color: Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -433,7 +440,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                   '${v['stock_trade']['wallet_amount']}',
                                               style: Sty()
                                                   .smallText
-                                                  .copyWith(color: Clr().grey))
+                                                  .copyWith(color: Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -461,7 +468,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                           .toString()
                                                           .contains('-')
                                                       ? Clr().red
-                                                      : Clr().grey))
+                                                      : Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -491,7 +498,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                           .toString()
                                                           .contains('-')
                                                       ? Clr().red
-                                                      : Clr().grey))
+                                                      : Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -519,7 +526,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                           .toString()
                                                           .contains('-')
                                                       ? Clr().red
-                                                      : Clr().grey))
+                                                      : Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -548,7 +555,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                           .toString()
                                                           .contains('-')
                                                       ? Clr().red
-                                                      : Clr().grey))
+                                                      : Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -576,7 +583,7 @@ class _MyOrdersState extends State<MyOrders> {
                                                           .toString()
                                                           .contains('-')
                                                       ? Clr().red
-                                                      : Clr().grey))
+                                                      : Clr().white))
                                         ]),
                                   ),
                                 ),
@@ -607,7 +614,7 @@ class _MyOrdersState extends State<MyOrders> {
                           child: Text(
                               click == true ? 'More Details >>' : '<< Less',
                               style: Sty().microText.copyWith(
-                                  color: Colors.black26,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.w600))),
                     )
                   ],
