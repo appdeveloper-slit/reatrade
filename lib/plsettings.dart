@@ -135,9 +135,8 @@ class _plSettingsState extends State<plSettings> {
                     SizedBox(width: Dim().d8),
                     Expanded(
                         child: Text('{Range: 100% - 400%}',
-                            style: Sty()
-                                .mediumText
-                                .copyWith(color: Color(0xff6C6C6C))))
+                            style:
+                                Sty().mediumText.copyWith(color: Clr().white)))
                   ],
                 ),
                 SizedBox(height: Dim().d20),
@@ -177,23 +176,11 @@ class _plSettingsState extends State<plSettings> {
                     )),
                     SizedBox(width: Dim().d8),
                     Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(height: Dim().d20),
-                          Text('{Range: 100% - 400%}',
-                              style: Sty().mediumText.copyWith(
-                                  color: Clr().clr49,
-                                  fontSize: Dim().d14,
-                                  fontWeight: FontWeight.w400)),
-                          SizedBox(height: Dim().d52),
-                          Text('{Range: -70% - -10%}',
-                              style: Sty().mediumText.copyWith(
-                                  color: Clr().clr49,
-                                  fontSize: Dim().d14,
-                                  fontWeight: FontWeight.w400)),
-                        ],
-                      ),
+                      child: Text('{Range: -70% - -10%}',
+                          style: Sty().mediumText.copyWith(
+                              color: Clr().white,
+                              fontSize: Dim().d14,
+                              fontWeight: FontWeight.w400)),
                     ),
                   ],
                 ),
