@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
           leadingWidth: 300,
           leading: Padding(
             padding: EdgeInsets.all(Dim().d16),
-            child: Text('Hi ${profileList == null ? '' : profileList['name']}',
+            child: Text('Hi, ${profileList == null ? '' : profileList['name']}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Sty().mediumText.copyWith(

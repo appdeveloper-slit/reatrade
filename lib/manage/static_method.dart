@@ -45,7 +45,10 @@ class STM {
 
   void displayToast(String string, gravity) {
     Fluttertoast.showToast(
-        msg: string, toastLength: Toast.LENGTH_SHORT, gravity: gravity);
+        msg: string,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: gravity,
+        backgroundColor: Clr().white);
   }
 
   openWeb(String url) async {

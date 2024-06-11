@@ -72,43 +72,50 @@ class _SignInState extends State<SignIn> {
                 SizedBox(
                   height: Dim().d32,
                 ),
-                TextFormField(
-                  controller: mobileCtrl,
-                  cursorColor: Clr().primaryColor,
-                  style: Sty().mediumText.copyWith(color: Clr().white),
-                  maxLength: 10,
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.done,
-                  decoration: Sty().textFieldOutlineStyle.copyWith(
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(Dim().d12),
-                          child: SvgPicture.asset('assets/phone.svg'),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width > 600
+                      ? Dim().d300
+                      : null,
+                  child: TextFormField(
+                    controller: mobileCtrl,
+                    cursorColor: Clr().primaryColor,
+                    style: Sty().mediumText.copyWith(color: Clr().white),
+                    maxLength: 10,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    decoration: Sty().textFieldOutlineStyle.copyWith(
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(Dim().d12),
+                            child: SvgPicture.asset('assets/phone.svg'),
+                          ),
+                          hintStyle: Sty().smallText.copyWith(
+                                color: Clr().grey,
+                              ),
+                          hintText: "Enter Mobile Number",
+                          counterText: "",
+                          // prefixIcon: Icon(
+                          //   Icons.call,
+                          //   color: Clr().lightGrey,
+                          // ),
                         ),
-                        hintStyle: Sty().smallText.copyWith(
-                              color: Clr().grey,
-                            ),
-                        hintText: "Enter Mobile Number",
-                        counterText: "",
-                        // prefixIcon: Icon(
-                        //   Icons.call,
-                        //   color: Clr().lightGrey,
-                        // ),
-                      ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Mobile field is required';
-                    }
-                    if (value.length != 10) {
-                      return 'Mobile number must be 10 digits';
-                    }
-                  },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Mobile field is required';
+                      }
+                      if (value.length != 10) {
+                        return 'Mobile number must be 10 digits';
+                      }
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: Dim().d32,
                 ),
                 _ischanged
                     ? Container(
-                        width: MediaQuery.of(context).size.width * 0.70,
+                        width: MediaQuery.of(context).size.width > 600
+                            ? Dim().d200
+                            : MediaQuery.of(context).size.width * 0.70,
                         height: 50,
                         decoration: BoxDecoration(
                           color: Clr().primaryColor,

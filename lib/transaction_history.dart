@@ -176,7 +176,7 @@ class _TransactionHistoryState extends State<TransactionHistory>
                   '${v['created_at'].toString()}',
                   style: Sty()
                       .microText
-                      .copyWith(color: Color(0xFF494949), fontSize: 12),
+                      .copyWith(color: Clr().white, fontSize: 12),
                 ),
                 Container(
                   color: v['status'] == 0
@@ -225,7 +225,7 @@ class _TransactionHistoryState extends State<TransactionHistory>
                       '#${v['transaction_id'].toString()}',
                       style: Sty().smallText.copyWith(
                           fontSize: 16,
-                          color: Color(0xFF161616),
+                          color: Clr().white,
                           fontWeight: FontWeight.w500),
                     ),
                   ],

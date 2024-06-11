@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -221,7 +222,7 @@ class _KYCDetailsState extends State<KYCDetails> {
                   )
                 : Container(),
             backgroundColor:
-                widget.type == 'edit' ? Clr().background : Clr().transparent,
+                widget.type == 'edit' ? Clr().black : Clr().transparent,
             elevation: 0,
             centerTitle: true,
             title: Column(
@@ -267,7 +268,9 @@ class _KYCDetailsState extends State<KYCDetails> {
             ],
           ),
           body: SingleChildScrollView(
-            padding: EdgeInsets.all(Dim().d16),
+            padding: MediaQuery.of(context).size.width > 600
+                ? EdgeInsets.symmetric(horizontal: Dim().d300)
+                : EdgeInsets.all(Dim().d16),
             child: Form(
               key: _formKey,
               child: Column(
@@ -355,22 +358,26 @@ class _KYCDetailsState extends State<KYCDetails> {
                                         ),
                                         SizedBox(height: Dim().d28),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment: kIsWeb
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.spaceEvenly,
                                           children: [
+                                            kIsWeb
+                                                ? Container()
+                                                : InkWell(
+                                                    onTap: () {
+                                                      _getProfile(
+                                                          ImageSource.camera,
+                                                          'aadhar front');
+                                                    },
+                                                    child: Icon(
+                                                      Icons.camera_alt_outlined,
+                                                      color: Clr().primaryColor,
+                                                      size: Dim().d32,
+                                                    ),
+                                                  ),
                                             InkWell(
-                                              onTap: () {
-                                                _getProfile(ImageSource.camera,
-                                                    'aadhar front');
-                                              },
-                                              child: Icon(
-                                                Icons.camera_alt_outlined,
-                                                color: Clr().primaryColor,
-                                                size: Dim().d32,
-                                              ),
-                                            ),
-                                            InkWell(
-                                                onTap: () {
+                                                onTap: () async {
                                                   _getProfile(
                                                       ImageSource.gallery,
                                                       'aadhar front');
@@ -434,7 +441,9 @@ class _KYCDetailsState extends State<KYCDetails> {
                               'Front Side',
                               widget.type == 'edit'
                                   ? widget.data[1]['aadhar_front']
-                                  : aadharFrtFile),
+                                  : kIsWeb
+                                      ? frtaadhar
+                                      : aadharFrtFile),
                           SizedBox(height: Dim().d12),
                           InkWell(
                             onTap: () {
@@ -461,20 +470,24 @@ class _KYCDetailsState extends State<KYCDetails> {
                                         ),
                                         SizedBox(height: Dim().d28),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment: kIsWeb
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            InkWell(
-                                              onTap: () {
-                                                _getProfile(ImageSource.camera,
-                                                    'aadhar back');
-                                              },
-                                              child: Icon(
-                                                Icons.camera_alt_outlined,
-                                                color: Clr().primaryColor,
-                                                size: Dim().d32,
-                                              ),
-                                            ),
+                                            kIsWeb
+                                                ? Container()
+                                                : InkWell(
+                                                    onTap: () {
+                                                      _getProfile(
+                                                          ImageSource.camera,
+                                                          'aadhar back');
+                                                    },
+                                                    child: Icon(
+                                                      Icons.camera_alt_outlined,
+                                                      color: Clr().primaryColor,
+                                                      size: Dim().d32,
+                                                    ),
+                                                  ),
                                             InkWell(
                                                 onTap: () {
                                                   _getProfile(
@@ -540,7 +553,9 @@ class _KYCDetailsState extends State<KYCDetails> {
                               'Back Side',
                               widget.type == 'edit'
                                   ? widget.data[1]['aadhar_back']
-                                  : aadharBckFile),
+                                  : kIsWeb
+                                      ? bckaadhar
+                                      : aadharBckFile),
                         ],
                       ),
                     ),
@@ -633,19 +648,23 @@ class _KYCDetailsState extends State<KYCDetails> {
                                 ),
                                 SizedBox(height: Dim().d28),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: kIsWeb
+                                      ? MainAxisAlignment.center
+                                      : MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        _getProfile(ImageSource.camera, 'kyc');
-                                      },
-                                      child: Icon(
-                                        Icons.camera_alt_outlined,
-                                        color: Clr().primaryColor,
-                                        size: Dim().d32,
-                                      ),
-                                    ),
+                                    kIsWeb
+                                        ? Container()
+                                        : InkWell(
+                                            onTap: () {
+                                              _getProfile(
+                                                  ImageSource.camera, 'kyc');
+                                            },
+                                            child: Icon(
+                                              Icons.camera_alt_outlined,
+                                              color: Clr().primaryColor,
+                                              size: Dim().d32,
+                                            ),
+                                          ),
                                     InkWell(
                                         onTap: () {
                                           _getProfile(
@@ -707,7 +726,9 @@ class _KYCDetailsState extends State<KYCDetails> {
                       'Pan Card',
                       widget.type == 'edit'
                           ? widget.data[0]['image']
-                          : imageFile),
+                          : kIsWeb
+                              ? panaadhar
+                              : imageFile),
                   SizedBox(
                     height: Dim().d32,
                   ),
@@ -1065,9 +1086,41 @@ class _KYCDetailsState extends State<KYCDetails> {
     // }
   }
 
+  Uint8List? frtaadhar, bckaadhar, panaadhar;
+
+  Future<void> _pickImage() async {}
+
   /// get profile photo for Teacher
   _getProfile(source, type) async {
-    if (!kIsWeb) {
+    if (kIsWeb) {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        setState(() {
+          STM().displayToast('loading', ToastGravity.CENTER,);
+          switch (type) {
+            case 'kyc':
+              {
+                panaadhar = result.files.first.bytes;
+                profile = base64Encode(panaadhar!);
+              }
+              break;
+            case 'aadhar front':
+              {
+                frtaadhar = result.files.first.bytes;
+                aadharFrt = base64Encode(frtaadhar!);
+              }
+              break;
+            case 'aadhar back':
+              {
+                bckaadhar = result.files.first.bytes;
+                aadharBck = base64Encode(bckaadhar!);
+              }
+              break;
+          }
+          STM().back2Previous(ctx);
+        });
+      }
+    } else {
       final pickedFile = await ImagePicker().getImage(
         source: source,
         maxWidth: 1800,
@@ -1097,22 +1150,12 @@ class _KYCDetailsState extends State<KYCDetails> {
               {
                 aadharBckUrl = pickedFile.path.toString();
                 aadharBckFile = File(pickedFile.path.toString());
+                print('okoko${aadharBckFile}');
                 var image = aadharBckFile!.readAsBytesSync();
                 aadharBck = base64Encode(image);
               }
               break;
           }
-        });
-      }
-    } else {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: source);
-      if (image != null) {
-        var f = await image.readAsBytes();
-        setState(() {
-          profile = base64Encode(f);
-          STM().back2Previous(ctx);
-          print(profile);
         });
       }
     }
@@ -1129,6 +1172,7 @@ class _KYCDetailsState extends State<KYCDetails> {
   // }
 
   imageLayout(side, data) {
+    print(data);
     return InkWell(
       onTap: () {
         if (data != null) STM().redirect2page(ctx, viewImage(img: data));
@@ -1139,8 +1183,18 @@ class _KYCDetailsState extends State<KYCDetails> {
         decoration: BoxDecoration(border: Border.all(color: Color(0xff6C6C6C))),
         child: data != null
             ? data.toString().contains('https://')
-                ? Image.network(data, fit: BoxFit.fitWidth)
-                : Image.file(data, fit: BoxFit.fitWidth)
+                ? Image.network(
+                    data.toString(),
+                    fit: BoxFit.fitWidth,
+                    scale: 1,
+                    height: 100,
+                  )
+                : kIsWeb
+                    ? Image.memory(
+                        data,
+                        fit: BoxFit.fitWidth,
+                      )
+                    : Image.file(data, fit: BoxFit.fitWidth)
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

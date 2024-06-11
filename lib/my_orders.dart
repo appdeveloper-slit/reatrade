@@ -214,14 +214,40 @@ class _MyOrdersState extends State<MyOrders> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Clr().errorRed),
                         onPressed: () {
-                          apitype(
-                              type: 'post',
-                              apiname: 'cancel_order',
-                              value: [
-                                v['stock_trade_id'],
-                                v['id'],
-                                v['type_string']
-                              ]);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Cancel Order',
+                                      style: Sty().mediumBoldText),
+                                  content: Text(
+                                      'Are you sure want to cancel order?',
+                                      style: Sty().mediumText),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          apitype(
+                                              type: 'post',
+                                              apiname: 'cancel_order',
+                                              value: [
+                                                v['stock_trade_id'],
+                                                v['id'],
+                                                v['type_string']
+                                              ]);
+                                        },
+                                        child: Text('Yes',
+                                            style: Sty().smallText.copyWith(
+                                                fontWeight: FontWeight.w600))),
+                                    TextButton(
+                                        onPressed: () {
+                                          STM().back2Previous(ctx);
+                                        },
+                                        child: Text('No',
+                                            style: Sty().smallText.copyWith(
+                                                fontWeight: FontWeight.w600))),
+                                  ],
+                                );
+                              });
                         },
                         child: Text(
                           'Cancel',

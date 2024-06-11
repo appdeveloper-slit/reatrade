@@ -55,7 +55,6 @@ dependencies:
   cupertino_icons: 
   carousel_slider: 
   awesome_dialog: 
-  file_picker: 
   dotted_border: 
   onesignal_flutter: 
   sqflite: 
@@ -65,6 +64,7 @@ dependencies:
   web_socket_channel: 
   candlesticks: 
   webview_flutter: 
+  file_picker:
 
 dev_dependencies:
   # rules and activating additional ones.

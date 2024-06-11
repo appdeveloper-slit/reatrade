@@ -602,97 +602,100 @@ class _BuyStockState extends State<BuyStock> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dim().d12),
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        margin: EdgeInsets.fromLTRB(5, 20, 5, 20),
-                        padding: EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(width: 1, color: Color(0xff278225)),
-                          borderRadius: BorderRadius.circular(5),
-                          shape: BoxShape.rectangle,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            children: [
-                              SizedBox(height: Dim().d12),
-                              Row(
-                                children: [
-                                  Text('Market Value:- ',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().grey)),
-                                  Text(
-                                      '${totaloMarketValue == null ? 00 : totaloMarketValue.toString().contains('.') ? double.parse(totaloMarketValue.toString()).toStringAsFixed(2) : totaloMarketValue.toString()}',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().white)),
-                                ],
-                              ),
-                              SizedBox(height: Dim().d12),
-                              Row(
-                                children: [
-                                  Text('Leverage:- ',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().grey)),
-                                  Text('${marketValue}',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().white)),
-                                ],
-                              ),
-                              SizedBox(height: Dim().d12),
-                              Row(
-                                children: [
-                                  Text('Required Funds:- ',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().grey)),
-                                  Text(
-                                      '${requiredFund == null ? 00 : requiredFund.toString().contains('.') ? double.parse(requiredFund.toString()).toStringAsFixed(2) : requiredFund.toString()}',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().white)),
-                                ],
-                              ),
-                              SizedBox(height: Dim().d12),
-                              Row(
-                                children: [
-                                  Text('Leverage Amount:- ',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().grey)),
-                                  Text(
-                                      '${leverageAmtFund == null ? 00 : leverageAmtFund.toString().contains('.') ? double.parse(leverageAmtFund.toString()).toStringAsFixed(2) : leverageAmtFund.toString()}',
-                                      style: Sty()
-                                          .mediumText
-                                          .copyWith(color: Clr().white)),
-                                ],
-                              ),
-                            ],
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Dim().d12),
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.fromLTRB(5, 20, 5, 20),
+                          padding: EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(width: 1, color: Color(0xff278225)),
+                            borderRadius: BorderRadius.circular(5),
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              children: [
+                                SizedBox(height: Dim().d12),
+                                Row(
+                                  children: [
+                                    Text('Market Value:- ',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().grey)),
+                                    Text(
+                                        '${totaloMarketValue == null ? 00 : totaloMarketValue.toString().contains('.') ? double.parse(totaloMarketValue.toString()).toStringAsFixed(2) : totaloMarketValue.toString()}',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().white)),
+                                  ],
+                                ),
+                                SizedBox(height: Dim().d12),
+                                Row(
+                                  children: [
+                                    Text('Leverage:- ',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().grey)),
+                                    Text('${marketValue}',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().white)),
+                                  ],
+                                ),
+                                SizedBox(height: Dim().d12),
+                                Row(
+                                  children: [
+                                    Text('Required Funds:- ',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().grey)),
+                                    Text(
+                                        '${requiredFund == null ? 00 : requiredFund.toString().contains('.') ? double.parse(requiredFund.toString()).toStringAsFixed(2) : requiredFund.toString()}',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().white)),
+                                  ],
+                                ),
+                                SizedBox(height: Dim().d12),
+                                Row(
+                                  children: [
+                                    Text('Leverage Amount:- ',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().grey)),
+                                    Text(
+                                        '${leverageAmtFund == null ? 00 : leverageAmtFund.toString().contains('.') ? double.parse(leverageAmtFund.toString()).toStringAsFixed(2) : leverageAmtFund.toString()}',
+                                        style: Sty()
+                                            .mediumText
+                                            .copyWith(color: Clr().white)),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        left: 30,
-                        top: 8,
-                        child: Container(
-                          padding:
-                              EdgeInsets.only(bottom: 5, left: 10, right: 10),
-                          color: Colors.white,
-                          child: Text(
-                            'Break up',
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+                        Positioned(
+                          left: 30,
+                          top: 8,
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(bottom: 5, left: 10, right: 10),
+                            color: Colors.white,
+                            child: Text(
+                              'Break up',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 18),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Padding(

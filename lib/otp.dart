@@ -78,47 +78,55 @@ class _VerificationState extends State<Verification> {
                 SizedBox(
                   height: Dim().d32,
                 ),
-                PinCodeTextField(
-                  controller: otpCtrl,
-                  // errorAnimationController: errorController,
-                  appContext: context,
-                  enableActiveFill: true,
-                  textStyle:
-                      Sty().largeText.copyWith(color: Clr().primaryColor),
-                  length: 4,
-                  obscureText: false,
-                  keyboardType: TextInputType.number,
-                  animationType: AnimationType.scale,
-                  cursorColor: Clr().accentColor,
-                  errorTextSpace: 25.0,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderWidth: 0.2,
-                    borderRadius: BorderRadius.circular(Dim().d4),
-                    fieldWidth: Dim().d60,
-                    fieldHeight: Dim().d56,
-                    selectedFillColor: Clr().transparent,
-                    activeFillColor: Clr().transparent,
-                    inactiveFillColor: Clr().transparent,
-                    inactiveColor: Clr().borderColor,
-                    activeColor: Clr().accentColor,
-                    selectedColor: Clr().accentColor,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width > 600
+                      ? Dim().d300
+                      : null,
+                  child: PinCodeTextField(
+                    controller: otpCtrl,
+                    // errorAnimationController: errorController,
+                    appContext: context,
+                    enableActiveFill: true,
+                    textStyle:
+                        Sty().largeText.copyWith(color: Clr().primaryColor),
+                    length: 4,
+                    obscureText: false,
+                    keyboardType: TextInputType.number,
+                    animationType: AnimationType.scale,
+                    cursorColor: Clr().accentColor,
+                    errorTextSpace: 25.0,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderWidth: 0.2,
+                      borderRadius: BorderRadius.circular(Dim().d4),
+                      fieldWidth: Dim().d60,
+                      fieldHeight: Dim().d56,
+                      selectedFillColor: Clr().transparent,
+                      activeFillColor: Clr().transparent,
+                      inactiveFillColor: Clr().transparent,
+                      inactiveColor: Clr().borderColor,
+                      activeColor: Clr().accentColor,
+                      selectedColor: Clr().accentColor,
+                    ),
+                    animationDuration: const Duration(milliseconds: 200),
+                    onChanged: (value) {},
+                    validator: (value) {
+                      if (value!.isEmpty ||
+                          !RegExp(r'(.{4,})').hasMatch(value)) {
+                        return Str().invalidOtp;
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
-                  animationDuration: const Duration(milliseconds: 200),
-                  onChanged: (value) {},
-                  validator: (value) {
-                    if (value!.isEmpty || !RegExp(r'(.{4,})').hasMatch(value)) {
-                      return Str().invalidOtp;
-                    } else {
-                      return null;
-                    }
-                  },
                 ),
                 SizedBox(
                   height: Dim().d24,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.70,
+                  width: MediaQuery.of(context).size.width > 600
+                      ? Dim().d200
+                      : MediaQuery.of(context).size.width * 0.70,
                   height: 50,
                   decoration: BoxDecoration(
                     color: Clr().primaryColor,

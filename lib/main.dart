@@ -1,14 +1,15 @@
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:storak/bank_details.dart';
 import 'package:storak/home.dart';
 import 'package:storak/kyc_details.dart';
 import 'package:upgrader/upgrader.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 // import 'package:sharma_interior/sign_in.dart';
 import 'buy_stock.dart';
 import 'sign_in.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,20 +40,23 @@ Future<void> main() async {
       builder: (context, child) {
         return MediaQuery(
           child: child!,
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(1.0)),
         );
       },
       // navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: isLogin
-          ? Home(
-              b: true,
-            )
-          : kyc
-              ? BankDetails()
-              : personal
-                  ? KYCDetails()
-                  : SignIn(),
+      home: kIsWeb
+          ? const SignIn()
+          : isLogin
+              ? const Home(
+                  b: true,
+                )
+              : kyc
+                  ? const BankDetails()
+                  : personal
+                      ? KYCDetails()
+                      : const SignIn(),
     ),
   );
 }

@@ -17,6 +17,7 @@ import 'package:storak/viewimage.dart';
 import 'kyc_details.dart';
 import 'manage/static_method.dart';
 import 'my_account.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'values/colors.dart';
 import 'values/dimens.dart';
 import 'values/strings.dart';
@@ -434,19 +435,22 @@ class _BankDetailsState extends State<BankDetails> {
                                 ),
                                 SizedBox(height: Dim().d28),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: kIsWeb
+                                      ? MainAxisAlignment.center
+                                      : MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        _getProfile(ImageSource.camera);
-                                      },
-                                      child: Icon(
-                                        Icons.camera_alt_outlined,
-                                        color: Clr().primaryColor,
-                                        size: Dim().d32,
-                                      ),
-                                    ),
+                                    kIsWeb
+                                        ? Container()
+                                        : InkWell(
+                                            onTap: () {
+                                              _getProfile(ImageSource.camera);
+                                            },
+                                            child: Icon(
+                                              Icons.camera_alt_outlined,
+                                              color: Clr().primaryColor,
+                                              size: Dim().d32,
+                                            ),
+                                          ),
                                     InkWell(
                                         onTap: () {
                                           _getProfile(ImageSource.gallery);
