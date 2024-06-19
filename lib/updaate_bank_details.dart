@@ -361,8 +361,6 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          primary: Colors.transparent,
-                          onSurface: Colors.transparent,
                           shadowColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5))),

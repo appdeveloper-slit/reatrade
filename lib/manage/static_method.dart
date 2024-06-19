@@ -48,6 +48,7 @@ class STM {
         msg: string,
         toastLength: Toast.LENGTH_SHORT,
         gravity: gravity,
+        textColor: Clr().black,
         backgroundColor: Clr().white);
   }
 

@@ -495,8 +495,6 @@ class _StockChartState extends State<StockChart> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                           elevation: 0,
-                                          primary: Colors.transparent,
-                                          onSurface: Colors.transparent,
                                           shadowColor: Colors.transparent,
                                           backgroundColor: Clr().accentColor,
                                           shape: RoundedRectangleBorder(

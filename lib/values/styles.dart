@@ -417,7 +417,7 @@ class Sty {
   );
 
   ButtonStyle primaryButton = ElevatedButton.styleFrom(
-    primary: Clr().primaryColor,
+    // primary: Clr().primaryColor,
     padding: EdgeInsets.symmetric(
       vertical: Dim().d12,
     ),
@@ -429,7 +429,7 @@ class Sty {
   );
 
   ButtonStyle primaryButton2 = ElevatedButton.styleFrom(
-    primary: Clr().accentColor,
+    // primary: Clr().accentColor,
     padding: EdgeInsets.symmetric(
       vertical: Dim().d12,
     ),
@@ -441,7 +441,7 @@ class Sty {
   );
 
   ButtonStyle whiteButton = ElevatedButton.styleFrom(
-    primary: Clr().white,
+    // primary: Clr().white,
     padding: EdgeInsets.symmetric(
       vertical: Dim().d4,
       horizontal: Dim().d20,

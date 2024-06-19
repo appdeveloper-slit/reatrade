@@ -173,8 +173,7 @@ class _SignUpState extends State<SignUp> {
                             },
                             style: ElevatedButton.styleFrom(
                                 elevation: 0,
-                                primary: Colors.transparent,
-                                onSurface: Colors.transparent,
+                                backgroundColor: Clr().transparent,
                                 shadowColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),

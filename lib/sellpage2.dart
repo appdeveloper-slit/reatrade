@@ -354,8 +354,7 @@ class _SellPageFinalState extends State<SellPageFinal> {
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      primary: Colors.transparent,
-                      onSurface: Colors.transparent,
+                      
                       shadowColor: Colors.transparent,
                       backgroundColor: Clr().red,
                       shape: RoundedRectangleBorder(
