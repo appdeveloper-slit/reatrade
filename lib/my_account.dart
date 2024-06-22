@@ -1002,7 +1002,7 @@ class _MyAccountState extends State<MyAccount> {
               ),
               InkWell(
                 onTap: () {
-                  showDialog(
+                  showDialog(                      
                       context: context,
                       builder: (context) {
                         return AlertDialog(
