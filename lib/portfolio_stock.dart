@@ -300,8 +300,7 @@ class _PortfolioStockState extends State<PortfolioStock> {
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      primary: Colors.transparent,
-                      onSurface: Colors.transparent,
+                     
                       shadowColor: Colors.transparent,
                       backgroundColor: Clr().red,
                       shape: RoundedRectangleBorder(

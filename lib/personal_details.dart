@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -275,18 +277,21 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.zero,
-                                          borderSide: BorderSide(
-                                              color: Clr().lightGrey)),
+                                          borderSide:
+                                              BorderSide(color: Clr().white)),
                                       errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.zero,
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.zero,
                                           borderSide: BorderSide(
-                                              color: Clr().lightGrey)),
+                                            color: Clr().errorRed,
+                                          )),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.zero,
+                                          borderSide:
+                                              BorderSide(color: Clr().white)),
                                       disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.zero,
-                                      )),
+                                          borderRadius: BorderRadius.zero,
+                                          borderSide:
+                                              BorderSide(color: Clr().white))),
                               isExpanded: true,
 
                               icon: Icon(
@@ -379,8 +384,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                       },
                                       style: ElevatedButton.styleFrom(
                                           elevation: 0,
-                                          primary: Colors.transparent,
-                                          onSurface: Colors.transparent,
+                                          backgroundColor: Clr().transparent,
                                           shadowColor: Colors.transparent,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:

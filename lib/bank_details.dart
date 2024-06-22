@@ -24,9 +24,10 @@ import 'values/strings.dart';
 import 'values/styles.dart';
 
 class BankDetails extends StatefulWidget {
-  final type, banklist, page;
+  final type, banklist, page, kycskip;
 
-  const BankDetails({super.key, this.type, this.banklist, this.page});
+  const BankDetails(
+      {super.key, this.type, this.banklist, this.page, this.kycskip});
 
   @override
   State<BankDetails> createState() => _BankDetailsState();
@@ -571,9 +572,7 @@ class _BankDetailsState extends State<BankDetails> {
                             },
                             style: ElevatedButton.styleFrom(
                                 elevation: 0,
-                                primary: Colors.transparent,
-                                onSurface: Colors.transparent,
-                                shadowColor: Colors.transparent,
+                                backgroundColor: Clr().transparent,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
                             child: Text(
@@ -644,8 +643,7 @@ class _BankDetailsState extends State<BankDetails> {
       valid = false;
     }
     if (valid) {
-      // bankDetail();
-      kycDetail();
+      widget.kycskip == 'skip' ? bankDetail() : kycDetail();
     }
   }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -163,11 +165,11 @@ class _KYCDetailsState extends State<KYCDetails> {
       });
     } else {
       setState(() {
-        panNum = TextEditingController(text: widget.data[0]['number']);
-        aadharNum = TextEditingController(text: widget.data[1]['number']);
-        panName = TextEditingController(text: widget.data[0]['pan_name']);
-        panVerify = widget.data[0]['is_verify'];
-        aadhaarVerify = widget.data[1]['is_verify'];
+        panNum = TextEditingController(text: widget.data.isEmpty ? '' : widget.data[0]['number']);
+        aadharNum = TextEditingController(text: widget.data.isEmpty ? '' :widget.data[1]['number']);
+        panName = TextEditingController(text: widget.data.isEmpty ? '' : widget.data[0]['pan_name']);
+        panVerify = widget.data.isEmpty ? '' : widget.data[0]['is_verify'];
+        aadhaarVerify = widget.data.isEmpty ? '' : widget.data[1]['is_verify'];
         panVerify == 1 ? panCheck = true : panCheck = false;
         aadhaarVerify == 1 ? aadhar = true : aadhar = false;
       });
@@ -248,7 +250,13 @@ class _KYCDetailsState extends State<KYCDetails> {
                       ? Container()
                       : InkWell(
                           onTap: () {
-                            validates(1);
+                            // validates(1);
+                            STM().redirect2page(
+                              ctx,
+                              BankDetails(
+                                kycskip: 'skip',
+                              ),
+                            );
                           },
                           child: Center(
                             child: Padding(
@@ -440,7 +448,7 @@ class _KYCDetailsState extends State<KYCDetails> {
                           imageLayout(
                               'Front Side',
                               widget.type == 'edit'
-                                  ? widget.data[1]['aadhar_front']
+                                  ? widget.data.isEmpty ? null : widget.data[1]['aadhar_front']
                                   : kIsWeb
                                       ? frtaadhar
                                       : aadharFrtFile),
@@ -552,7 +560,7 @@ class _KYCDetailsState extends State<KYCDetails> {
                           imageLayout(
                               'Back Side',
                               widget.type == 'edit'
-                                  ? widget.data[1]['aadhar_back']
+                                  ? widget.data.isEmpty ? null : widget.data[1]['aadhar_back']
                                   : kIsWeb
                                       ? bckaadhar
                                       : aadharBckFile),
@@ -725,7 +733,7 @@ class _KYCDetailsState extends State<KYCDetails> {
                   imageLayout(
                       'Pan Card',
                       widget.type == 'edit'
-                          ? widget.data[0]['image']
+                          ? widget.data.isEmpty ? null : widget.data[0]['image']
                           : kIsWeb
                               ? panaadhar
                               : imageFile),
@@ -748,8 +756,7 @@ class _KYCDetailsState extends State<KYCDetails> {
                                     },
                                     style: ElevatedButton.styleFrom(
                                         elevation: 0,
-                                        primary: Colors.transparent,
-                                        onSurface: Colors.transparent,
+                                        backgroundColor: Clr().transparent,
                                         shadowColor: Colors.transparent,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -958,8 +965,7 @@ class _KYCDetailsState extends State<KYCDetails> {
                           },
                           style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              primary: Colors.transparent,
-                              onSurface: Colors.transparent,
+                              backgroundColor: Clr().transparent,
                               shadowColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5))),
@@ -980,7 +986,7 @@ class _KYCDetailsState extends State<KYCDetails> {
                           style: Sty().smallText.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
-                              color: Clr().textcolor),
+                              color: Clr().black),
                         ),
                         Visibility(
                           visible: !again,
@@ -1096,7 +1102,10 @@ class _KYCDetailsState extends State<KYCDetails> {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         setState(() {
-          STM().displayToast('loading', ToastGravity.CENTER,);
+          STM().displayToast(
+            'loading',
+            ToastGravity.CENTER,
+          );
           switch (type) {
             case 'kyc':
               {
