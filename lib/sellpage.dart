@@ -360,7 +360,7 @@ class _SellPageState extends State<SellPage> {
                                   children: [
                                 TextSpan(
                                     text:
-                                        '₹ ${widget.details['transaction_fee'].toString().contains('.') ? double.parse(widget.details['transaction_fee'].toString()).toStringAsFixed(2) : widget.details['transaction_fee'].toString()}',
+                                        '₹ 0', //${widget.details['transaction_fee'].toString().contains('.') ? double.parse(widget.details['transaction_fee'].toString()).toStringAsFixed(2) : widget.details['transaction_fee'].toString()}',
                                     style: Sty().mediumText.copyWith(
                                           color: Clr().white,
                                         ))

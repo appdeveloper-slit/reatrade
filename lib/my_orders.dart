@@ -380,7 +380,7 @@ class _MyOrdersState extends State<MyOrders> {
                                         children: [
                                           TextSpan(
                                               text:
-                                                  '${v['stock_trade']['transaction_fee']}',
+                                                  '0', //'${v['stock_trade']['transaction_fee']}',
                                               style: Sty()
                                                   .smallText
                                                   .copyWith(color: Clr().white))

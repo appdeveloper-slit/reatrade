@@ -891,7 +891,7 @@ class _StockChartState extends State<StockChart> {
         //     .toList();
         allstock.isEmpty ? loading = true : loading = false;
       });
-      print(_data);
+      // print(_data);
     } else {
       setState(() {
         loading = true;
