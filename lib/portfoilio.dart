@@ -306,9 +306,9 @@ class _PortfolioState extends State<Portfolio> {
                         height: Dim().d20,
                       ),
                       portfolioData['stock_trades'].isEmpty
-                          ? Container(
-                              child: Padding(
-                                padding: EdgeInsets.all(20.0),
+                          ? SizedBox(
+                             height: MediaQuery.of(ctx).size.height / 2,
+                              child: Center(
                                 child: Text('You do not have any Active orders',
                                     style: Sty()
                                         .mediumText
