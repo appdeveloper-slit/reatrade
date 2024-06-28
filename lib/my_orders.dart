@@ -112,7 +112,7 @@ class _MyOrdersState extends State<MyOrders> {
                     ? SizedBox(
                         height: MediaQuery.of(ctx).size.height / 1.5,
                         child: Center(
-                          child: Text("No Orders,Please buy some stocks!!!!",
+                          child: Text("You haven't placed any orders yet",
                               style: Sty()
                                   .mediumBoldText
                                   .copyWith(color: Clr().white)),
