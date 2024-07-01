@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
+import 'dart:convert';
 import 'package:candlesticks/candlesticks.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -259,9 +262,7 @@ class _StockChartState extends State<StockChart> {
                                 child: SizedBox(
                                     height: 400.0,
                                     width: 500,
-                                    child:
-                                        // Candlesticks(candles: _data)
-                                        InteractiveChart(
+                                    child: InteractiveChart(
                                       candles: _data,
                                       initialVisibleCandleCount: 50,
                                       onCandleResize: (value) => 50.0,
@@ -478,6 +479,8 @@ class _StockChartState extends State<StockChart> {
                                                 : widget.details['id']);
                                           });
                                         }
+                                        STM().displayToast('Add To Favorite',
+                                            ToastGravity.BOTTOM);
                                       },
                                       child: SvgPicture.asset(
                                           'assets/unfillstar.svg')),
@@ -595,58 +598,8 @@ class _StockChartState extends State<StockChart> {
     var v = resultList[index];
     return InkWell(
       onTap: () {
-        _data.clear();
-        DateTime fromdate = DateTime.now();
-        // DateTime oneminutedate = DateTime(fromdate.year - fromdate.month - 2 - fromdate.day);
-        DateTime oneminutedate = fromdate.subtract(Duration(days: 60));
-        DateTime thirtyminutedate = fromdate.subtract(Duration(days: 60));
-        DateTime daydate =
-            DateTime(fromdate.year, fromdate.month - 6, fromdate.day);
-        DateTime weekdate =
-            DateTime(fromdate.year, fromdate.month - 24, fromdate.day);
-        DateTime monthdate =
-            DateTime(fromdate.year, fromdate.month - 60, fromdate.day);
-
-        String list1 =
-            'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/1minute/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(oneminutedate)}';
-
-        // String list2 =
-        //     'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/30minute/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(thirtyminutedate)}';
-        String list3 =
-            'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/day/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(daydate)}';
-
-        String list4 =
-            'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/week/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(weekdate)}';
-        String list5 =
-            'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/month/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(monthdate)}';
-        // print(list1);
-        // index == 0
-        //     ? stockUpdate(list1)
-        //     :
-        // // index == 1
-        // //         ? stockUpdate(list2)
-        // //         :
-        // index == 1
-        //             ? stockUpdate(list3)
-        //             : index == 2
-        //                 ? stockUpdate(list4)
-        //                 : stockUpdate(list5);
-        // setState(() {
-        //   isSelected = index;
-        // });
-        setState(() {
-          check = '1 minute';
-        });
-        ominuteStream = !kIsWeb
-            ? Stream.periodic(Duration(seconds: 5)).asyncMap((event) async =>
-                await stockUpdate(checkmarket == false
-                    ? 'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/1minute/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(oneminutedate)}'
-                    : 'https://api-v2.upstox.com/historical-candle/intraday/${data['instrument_token']}/1minute'))
-            : candleData();
-        // stockUpdate(checkmarket == false
-        //     ? 'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/1minute/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(oneminutedate)}'
-        //     : 'https://api-v2.upstox.com/historical-candle/intraday/${data['instrument_token']}/1minute');
-        // print('https://api-v2.upstox.com/historical-candle/intraday/${data['instrument_token']}/1minute');
+        stockUpdate(
+            'https://api.twelvedata.com/time_series?symbol=${data['symbol']}&interval=1min&exchange=NSE&apikey=799a04c1b05841378df39c2024380018&outputsize=1500');
       },
       child: Container(
         height: 50,
@@ -730,15 +683,18 @@ class _StockChartState extends State<StockChart> {
         instrumenttoken = data['instrument_token'];
         DateTime fromdate = DateTime.now();
         DateTime oneminutedate = fromdate.subtract(Duration(days: 60));
-        if (!kIsWeb) {
-          instrumenttoken != null
-              ? stockUpdate(checkmarket == false
-                  ? 'https://api-v2.upstox.com/historical-candle/${data['instrument_token']}/1minute/${DateFormat('yyyy-MM-dd').format(fromdate)}/${DateFormat('yyyy-MM-dd').format(oneminutedate)}'
-                  : 'https://api-v2.upstox.com/historical-candle/intraday/${instrumenttoken}/1minute')
-              : Container();
-        } else {
-          candleData();
-        }
+        stockUpdate(checkmarket == false
+            ? 'https://api.twelvedata.com/time_series?symbol=${data['symbol']}&interval=1min&exchange=NSE&apikey=799a04c1b05841378df39c2024380018&outputsize=1500'
+            : 'https://api.twelvedata.com/time_series?symbol=${data['symbol']}&interval=1min&exchange=NSE&apikey=799a04c1b05841378df39c2024380018&outputsize=1500');
+        // if (!kIsWeb) {
+        //   instrumenttoken != null
+        //       ? stockUpdate(checkmarket == false
+        //           ? 'https://api.twelvedata.com/time_series?symbol=${data['symbol']}&interval=1min&exchange=NSE&apikey=799a04c1b05841378df39c2024380018'
+        //           : 'https://api.twelvedata.com/time_series?symbol=${data['symbol']}&interval=1min&exchange=NSE&apikey=799a04c1b05841378df39c2024380018')
+        //       : Container();
+        // } else {
+        //   candleData();
+        // }
       });
       if (result['data']['is_favourite'] == true) {
         setState(() {
@@ -844,13 +800,13 @@ class _StockChartState extends State<StockChart> {
     Dio dio = Dio(
       BaseOptions(
         headers: {
-          "Access-Control-Allow-Origin": "https://api-v2.upstox.com",
-          "Access-Control-Allow-Methods": "GET,PUT,PATCH,POST,DELETE",
-          "Access-Control-Allow-Headers":
-              "Origin, X-Requested-With, Content-Type, Accept",
+          // "Access-Control-Allow-Origin": "https://api-v2.upstox.com",
+          // "Access-Control-Allow-Methods": "GET,PUT,PATCH,POST,DELETE",
+          // "Access-Control-Allow-Headers":
+          //     "Origin, X-Requested-With, Content-Type, Accept",
           "Content-Type": 'application/json',
           "responseType": "ResponseType.plain",
-          "Api-Version": "2.0",
+          // "Api-Version": "2.0",
         },
       ),
     );
@@ -868,36 +824,58 @@ class _StockChartState extends State<StockChart> {
       STM().errorDialog(ctx, e.message);
     }
     print(apiname);
-    var success = result['status'];
-    if (success == 'success') {
-      setState(() {
-        _data.clear();
-        List<dynamic> allstock = result['data']['candles'];
-        print(result['data']['candles']);
-        List<CandleData> candles = allstock
-            .map((e) => CandleData(
-                  timestamp:
-                      DateTime.parse(e[0].toString()).millisecondsSinceEpoch,
-                  open: e[1]?.toDouble(),
-                  high: e[2]?.toDouble(),
-                  low: e[3]?.toDouble(),
-                  close: e[4]?.toDouble(),
-                  volume: e[5]?.toDouble(),
-                ))
-            .toList();
-        _data = candles.reversed.toList();
-        // _data = allstock
-        //     .map((e) => Candle.fromJson(e))
-        //     .toList();
-        allstock.isEmpty ? loading = true : loading = false;
-      });
-      // print(_data);
-    } else {
-      setState(() {
-        loading = true;
-        message = "we don't get any data for this stock";
-      });
-    }
+    setState(() {
+      _data.clear();
+      print(result['values']);
+      List<dynamic> allstock = result['values'];
+      allstock.map((e) => print(e[0]));
+      List<CandleData> candles = allstock
+          .map((e) => CandleData(
+                timestamp: DateTime.parse(e['datetime'].toString())
+                    .millisecondsSinceEpoch,
+                open: double.parse(e['open'].toString()),
+                high: double.parse(e['high'].toString()),
+                low: double.parse(e['low'].toString()),
+                close: double.parse(e['close'].toString()),
+                volume: double.parse(e['volume'].toString()),
+              ))
+          .toList();
+      _data = candles.reversed.toList();
+      // _data = allstock
+      //     .map((e) => Candle.fromJson(e))
+      //     .toList();
+      allstock.isEmpty ? loading = true : loading = false;
+    });
+    // var success = result['status'];
+    // if (success == 'success') {
+    //   setState(() {
+    //     _data.clear();
+    //     List<dynamic> allstock = result['values'];
+    //     print(result['data']['candles']);
+    //     List<CandleData> candles = allstock
+    //         .map((e) => CandleData(
+    //               timestamp:
+    //                   DateTime.parse(e[0].toString()).millisecondsSinceEpoch,
+    //               open: e[1]?.toDouble(),
+    //               high: e[2]?.toDouble(),
+    //               low: e[3]?.toDouble(),
+    //               close: e[4]?.toDouble(),
+    //               volume: e[5]?.toDouble(),
+    //             ))
+    //         .toList();
+    //     _data = candles.reversed.toList();
+    //     // _data = allstock
+    //     //     .map((e) => Candle.fromJson(e))
+    //     //     .toList();
+    //     allstock.isEmpty ? loading = true : loading = false;
+    //   });
+    //   // print(_data);
+    // } else {
+    //   setState(() {
+    //     loading = true;
+    //     message = "we don't get any data for this stock";
+    //   });
+    // }
   }
 
 // _computeTrendLines() {

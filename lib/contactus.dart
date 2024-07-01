@@ -45,11 +45,11 @@ class _contactUsState extends State<contactUs> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 32,
+              height: Dim().d32,
             ),
             Image.asset('assets/contact_banner.png'),
             SizedBox(
-              height: 20,
+              height: Dim().d20,
             ),
             Text(
               'Contact Information',
@@ -60,20 +60,22 @@ class _contactUsState extends State<contactUs> {
                   ),
             ),
             SizedBox(
-              height: 4,
+              height: Dim().d4,
             ),
             Text('Have any query contact us',
                 style: Sty().microText.copyWith(
                       fontWeight: FontWeight.w400,
                       color: Clr().white,
                     )),
-            SizedBox(height: 20),
+            SizedBox(
+              height: Dim().d20,
+            ),
             SvgPicture.asset(
               'assets/phone.svg',
               color: Clr().white,
             ),
             SizedBox(
-              height: 4,
+              height: Dim().d4,
             ),
             InkWell(
                 onTap: () {
@@ -87,7 +89,9 @@ class _contactUsState extends State<contactUs> {
                         color: Clr().white,
                       ),
                 )),
-            SizedBox(height: 20),
+            SizedBox(
+              height: Dim().d20,
+            ),
             SvgPicture.asset(
               'assets/mail.svg',
               color: Clr().white,
@@ -134,7 +138,9 @@ class _contactUsState extends State<contactUs> {
                     ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: Dim().d20,
+            ),
           ],
         ),
       )),

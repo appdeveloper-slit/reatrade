@@ -98,192 +98,192 @@ class _paymentPageState extends State<paymentPage> {
                   ),
                 ],
               ),
-              // SizedBox(height: Dim().d20),
-              // imgList.isEmpty
-              //     ? Container()
-              //     : Align(
-              //         alignment: Alignment.center,
-              //         child: SizedBox(
-              //           height: Dim().d200,
-              //           child: Image.network(
-              //             '${imgList[0]['image']}',
-              //             fit: BoxFit.contain,
-              //           ),
-              //         ),
-              //       ),
-              // SizedBox(height: Dim().d20),
-              // imgList.isEmpty
-              //     ? Container()
-              //     : Padding(
-              //         padding: EdgeInsets.symmetric(horizontal: Dim().d12),
-              //         child: RichText(
-              //           text: TextSpan(
-              //             text: 'UPI ID : ',
-              //             style:
-              //                 Sty().mediumBoldText.copyWith(color: Clr().white),
-              //             children: [
-              //               TextSpan(
-              //                 text: '${imgList[0]['upi_id']}',
-              //                 style: Sty().mediumText.copyWith(
-              //                       fontWeight: FontWeight.w400,
-              //                       color: Clr().white,
-              //                     ),
-              //               )
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              // SizedBox(height: Dim().d20),
-              // imgList.isEmpty
-              //     ? Container()
-              //     : Padding(
-              //         padding: EdgeInsets.symmetric(horizontal: Dim().d12),
-              //         child: RichText(
-              //           text: TextSpan(
-              //             text: 'Bank Name : ',
-              //             style: Sty().mediumBoldText.copyWith(
-              //                   color: Clr().white,
-              //                 ),
-              //             children: [
-              //               TextSpan(
-              //                 text: '${imgList[0]['name']}',
-              //                 style: Sty().mediumText.copyWith(
-              //                       fontWeight: FontWeight.w400,
-              //                       color: Clr().white,
-              //                     ),
-              //               )
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              // imgList.isEmpty
-              //     ? Container()
-              //     : Padding(
-              //         padding: EdgeInsets.symmetric(horizontal: Dim().d12),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             RichText(
-              //               text: TextSpan(
-              //                 text: 'Account No. : ',
-              //                 style: Sty().mediumBoldText.copyWith(
-              //                       color: Clr().white,
-              //                     ),
-              //                 children: [
-              //                   TextSpan(
-              //                     text: '${imgList[0]['account_no']}',
-              //                     style: Sty().mediumText.copyWith(
-              //                           fontWeight: FontWeight.w400,
-              //                           color: Clr().white,
-              //                         ),
-              //                   )
-              //                 ],
-              //               ),
-              //             ),
-              //             IconButton(
-              //                 onPressed: () async {
-              //                   await Clipboard.setData(ClipboardData(
-              //                       text: '${imgList[0]['account_no']}'));
-              //                   STM().displayToast(
-              //                       'Code Copied!', ToastGravity.BOTTOM);
-              //                 },
-              //                 icon: Icon(Icons.copy, color: Clr().white)),
-              //           ],
-              //         ),
-              //       ),
-              // imgList.isEmpty
-              //     ? Container()
-              //     : Padding(
-              //         padding: EdgeInsets.symmetric(horizontal: Dim().d12),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             RichText(
-              //               text: TextSpan(
-              //                 text: 'IFSC No. : ',
-              //                 style: Sty().mediumBoldText.copyWith(
-              //                       color: Clr().white,
-              //                     ),
-              //                 children: [
-              //                   TextSpan(
-              //                     text: '${imgList[0]['ifsc_code']}',
-              //                     style: Sty().mediumText.copyWith(
-              //                           fontWeight: FontWeight.w400,
-              //                           color: Clr().white,
-              //                         ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //             IconButton(
-              //               onPressed: () async {
-              //                 await Clipboard.setData(ClipboardData(
-              //                     text: '${imgList[0]['ifsc_code']}'));
-              //                 STM().displayToast(
-              //                     'Code Copied!', ToastGravity.BOTTOM);
-              //               },
-              //               icon: Icon(Icons.copy, color: Clr().white),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              // imgList.isEmpty
-              //     ? Container()
-              //     : Padding(
-              //         padding: EdgeInsets.symmetric(horizontal: Dim().d12),
-              //         child: RichText(
-              //           text: TextSpan(
-              //             text: 'Branch Name : ',
-              //             style: Sty().mediumBoldText.copyWith(
-              //                   color: Clr().white,
-              //                 ),
-              //             children: [
-              //               TextSpan(
-              //                 text: '${imgList[0]['branch']}',
-              //                 style: Sty().mediumText.copyWith(
-              //                       fontWeight: FontWeight.w400,
-              //                       color: Clr().white,
-              //                     ),
-              //               )
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              // SizedBox(height: Dim().d20),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: Dim().d12),
-              //   child: Container(
-              //       height: Dim().d60,
-              //       child: ElevatedButton(
-              //           onPressed: () async {
-              //             await Clipboard.setData(
-              //                 ClipboardData(text: '${imgList[0]['upi_id']}'));
-              //             STM().displayToast(
-              //                 'Code Copied!', ToastGravity.BOTTOM);
-              //           },
-              //           style: ElevatedButton.styleFrom(
-              //               shape: RoundedRectangleBorder(
-              //                   borderRadius: BorderRadius.circular(Dim().d12)),
-              //               backgroundColor: Clr().primaryColor),
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //             children: [
-              //               Padding(
-              //                 padding: EdgeInsets.only(left: 12.0),
-              //                 child: Icon(
-              //                   Icons.copy,
-              //                   color: Clr().white,
-              //                 ),
-              //               ),
-              //               Text(
-              //                 'Copy UPI ID',
-              //                 style:
-              //                     Sty().mediumText.copyWith(color: Clr().white),
-              //               ),
-              //               SizedBox(width: Dim().d56)
-              //             ],
-              //           ))),
-              // ),
+              SizedBox(height: Dim().d20),
+              imgList.isEmpty
+                  ? Container()
+                  : Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        height: Dim().d200,
+                        child: Image.network(
+                          '${imgList[0]['image']}',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+              SizedBox(height: Dim().d20),
+              imgList.isEmpty
+                  ? Container()
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dim().d12),
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'UPI ID : ',
+                          style:
+                              Sty().mediumBoldText.copyWith(color: Clr().white),
+                          children: [
+                            TextSpan(
+                              text: '${imgList[0]['upi_id']}',
+                              style: Sty().mediumText.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: Clr().white,
+                                  ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+              SizedBox(height: Dim().d20),
+              imgList.isEmpty
+                  ? Container()
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dim().d12),
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Bank Name : ',
+                          style: Sty().mediumBoldText.copyWith(
+                                color: Clr().white,
+                              ),
+                          children: [
+                            TextSpan(
+                              text: '${imgList[0]['name']}',
+                              style: Sty().mediumText.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: Clr().white,
+                                  ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+              imgList.isEmpty
+                  ? Container()
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dim().d12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: 'Account No. : ',
+                              style: Sty().mediumBoldText.copyWith(
+                                    color: Clr().white,
+                                  ),
+                              children: [
+                                TextSpan(
+                                  text: '${imgList[0]['account_no']}',
+                                  style: Sty().mediumText.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Clr().white,
+                                      ),
+                                )
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () async {
+                                await Clipboard.setData(ClipboardData(
+                                    text: '${imgList[0]['account_no']}'));
+                                STM().displayToast(
+                                    'Code Copied!', ToastGravity.BOTTOM);
+                              },
+                              icon: Icon(Icons.copy, color: Clr().white)),
+                        ],
+                      ),
+                    ),
+              imgList.isEmpty
+                  ? Container()
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dim().d12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: 'IFSC No. : ',
+                              style: Sty().mediumBoldText.copyWith(
+                                    color: Clr().white,
+                                  ),
+                              children: [
+                                TextSpan(
+                                  text: '${imgList[0]['ifsc_code']}',
+                                  style: Sty().mediumText.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Clr().white,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              await Clipboard.setData(ClipboardData(
+                                  text: '${imgList[0]['ifsc_code']}'));
+                              STM().displayToast(
+                                  'Code Copied!', ToastGravity.BOTTOM);
+                            },
+                            icon: Icon(Icons.copy, color: Clr().white),
+                          ),
+                        ],
+                      ),
+                    ),
+              imgList.isEmpty
+                  ? Container()
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dim().d12),
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Branch Name : ',
+                          style: Sty().mediumBoldText.copyWith(
+                                color: Clr().white,
+                              ),
+                          children: [
+                            TextSpan(
+                              text: '${imgList[0]['branch']}',
+                              style: Sty().mediumText.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: Clr().white,
+                                  ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+              SizedBox(height: Dim().d20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Dim().d12),
+                child: Container(
+                    height: Dim().d60,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          await Clipboard.setData(
+                              ClipboardData(text: '${imgList[0]['upi_id']}'));
+                          STM().displayToast(
+                              'Code Copied!', ToastGravity.BOTTOM);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(Dim().d12)),
+                            backgroundColor: Clr().primaryColor),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 12.0),
+                              child: Icon(
+                                Icons.copy,
+                                color: Clr().white,
+                              ),
+                            ),
+                            Text(
+                              'Copy UPI ID',
+                              style:
+                                  Sty().mediumText.copyWith(color: Clr().white),
+                            ),
+                            SizedBox(width: Dim().d56)
+                          ],
+                        ))),
+              ),
               SizedBox(height: Dim().d20),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Dim().d12),

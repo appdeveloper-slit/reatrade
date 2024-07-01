@@ -16,7 +16,6 @@ import 'values/styles.dart';
 
 class SearchStocks extends StatefulWidget {
   final type;
-
   const SearchStocks({super.key, this.type});
 
   @override
@@ -83,6 +82,7 @@ class _SearchStocksState extends State<SearchStocks> {
         backgroundColor: Clr().black,
         bottomNavigationBar: bottomBarLayout(ctx, 0, '', b: true),
         appBar: AppBar(
+          toolbarHeight: Dim().d80,
           elevation: 1,
           shadowColor: Clr().lightShadow,
           backgroundColor: Clr().black,

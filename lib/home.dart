@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, prefer_const_constructors, unnecessary_string_interpolations
 
 import 'dart:async';
 import 'package:dio/dio.dart';
@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:storak/demo.dart';
 import 'package:storak/localstore.dart';
 import 'package:storak/manage/static_method.dart';
 import 'package:storak/search_stocks.dart';
@@ -46,6 +47,7 @@ class _HomeState extends State<Home> {
   var result;
   List<dynamic> loaclStockList = [];
   var niftyFifty, senSexValue;
+  bool loader = false;
 
   Future<void> _addItem(stockID, symbol, companyname) async {
     await Store.createItem(stockID, symbol, companyname);
@@ -84,7 +86,7 @@ class _HomeState extends State<Home> {
   }
 
   Map updateType = {};
-  late Stream stream = Stream.periodic(Duration(seconds: 5)).asyncMap(
+  late Stream stream = Stream.periodic(Duration(seconds: 2)).asyncMap(
       (event) async => await apiType(apiname: 'stock_list', type: 'post'));
   Upgrader _upgrader = Upgrader();
   // var channel = WebSocketChannel.connect(Uri.parse('https://storak.in/api/stock_list'));
@@ -157,28 +159,41 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        body: updateType.isEmpty
-            ? Container()
-            : UpgradeAlert(
-                upgrader: Upgrader(
-                  canDismissDialog: false,
-                  dialogStyle: UpgradeDialogStyle.material,
-                  durationUntilAlertAgain: Duration(seconds: 2),
-                  showReleaseNotes: true,
-                  onUpdate: () {
-                    updateType['update_type'] == false
-                        ? Future.delayed(Duration(seconds: 1), () {
-                            SystemNavigator.pop();
-                          })
-                        : null;
-                    return true;
-                  },
-                  showIgnore: false,
-                  // updateType == null ? false : updateType['update_type'],
-                  showLater: false,
-                  // updateType == null ? false : updateType['update_type'],
+        body: loader == false
+            ? SizedBox(
+                height: MediaQuery.of(ctx).size.height / 1.3,
+                child: Center(
+                  child: Text(
+                    'Loading...',
+                    style: Sty().mediumText.copyWith(
+                          color: Clr().white,
+                        ),
+                  ),
                 ),
-                child: homeLayout()),
+              )
+            : updateType.isEmpty
+                ? Container()
+                : UpgradeAlert(
+                    upgrader: Upgrader(
+                      canDismissDialog: false,
+                      dialogStyle: UpgradeDialogStyle.material,
+                      durationUntilAlertAgain: Duration(seconds: 2),
+                      showReleaseNotes: true,
+                      onUpdate: () {
+                        updateType['update_type'] == false
+                            ? Future.delayed(Duration(seconds: 1), () {
+                                SystemNavigator.pop();
+                              })
+                            : null;
+                        return true;
+                      },
+                      showIgnore: false,
+                      // updateType == null ? false : updateType['update_type'],
+                      showLater: false,
+                      // updateType == null ? false : updateType['update_type'],
+                    ),
+                    child: homeLayout(),
+                  ),
       ),
     );
   }
@@ -225,7 +240,7 @@ class _HomeState extends State<Home> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${indesList[0]['symbol']}',
+                                    '${indesList[0]['symbol'] == 'NSEI' ? 'NIFTY' : ''}',
                                     style: Sty()
                                         .smallText
                                         .copyWith(color: Clr().white),
@@ -299,7 +314,7 @@ class _HomeState extends State<Home> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${indesList[1]['symbol']}',
+                                    '${indesList[1]['symbol'] == 'BSESN' ? 'SENSEX' : ''}',
                                     style: Sty()
                                         .smallText
                                         .copyWith(color: Clr().white),
@@ -622,6 +637,7 @@ class _HomeState extends State<Home> {
             stockList = result['data']['stock_list'];
             topCompList = result['data']['top_companies'];
             indesList = result['data']['index'];
+
             // ignore = result['data']['update_type'];
             // later = result['data']['update_type'];
             for (int a = 0; a < stockList.length; a++) {
@@ -646,6 +662,7 @@ class _HomeState extends State<Home> {
                 });
               }
             }
+            loader = true;
             loading = false;
           });
         } else {

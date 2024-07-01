@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +14,10 @@ import 'package:storak/values/colors.dart';
 import 'package:storak/values/dimens.dart';
 import 'package:storak/values/strings.dart';
 import 'package:storak/values/styles.dart';
-
 import 'bottom_navigation/bottom_navigation.dart';
 
 class SellPage extends StatefulWidget {
   final dynamic details;
-
   const SellPage({super.key, this.details});
 
   @override
@@ -47,7 +47,7 @@ class _SellPageState extends State<SellPage> {
     print(Token);
   }
 
-  late Stream stream = Stream.periodic(Duration(seconds: 5))
+  late Stream stream = Stream.periodic(Duration(seconds: 2))
       .asyncMap((event) async => await apitype());
 
   @override
@@ -337,19 +337,21 @@ class _SellPageState extends State<SellPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RichText(
-                              text: TextSpan(
-                                  text: 'Floating P/L:- ',
-                                  style: Sty()
-                                      .mediumText
-                                      .copyWith(color: Clr().grey),
-                                  children: [
+                            text: TextSpan(
+                              text: 'Floating P/L:- ',
+                              style:
+                                  Sty().mediumText.copyWith(color: Clr().grey),
+                              children: [
                                 TextSpan(
-                                    text:
-                                        '₹ ${widget.details['floating_p_l'].toString().contains('.') ? double.parse(widget.details['floating_p_l'].toString()).toStringAsFixed(2) : widget.details['floating_p_l'].toString()} (${widget.details['floating_p_l_percent'].toString().contains('.') ? double.parse(widget.details['floating_p_l_percent'].toString()).toStringAsFixed(2) : widget.details['floating_p_l_percent'].toString()}%)',
-                                    style: Sty().mediumText.copyWith(
-                                          color: Clr().white,
-                                        ))
-                              ])),
+                                  text:
+                                      '₹ ${widget.details['floating_p_l'].toString().contains('.') ? double.parse(widget.details['floating_p_l'].toString()).toStringAsFixed(2) : widget.details['floating_p_l'].toString()} (${widget.details['floating_p_l_percent'].toString().contains('.') ? double.parse(widget.details['floating_p_l_percent'].toString()).toStringAsFixed(2) : widget.details['floating_p_l_percent'].toString()}%)',
+                                  style: Sty().mediumText.copyWith(
+                                        color: Clr().white,
+                                      ),
+                                )
+                              ],
+                            ),
+                          ),
                           SizedBox(height: Dim().d12),
                           RichText(
                               text: TextSpan(
@@ -526,27 +528,28 @@ class _SellPageState extends State<SellPage> {
                     )),
                     SizedBox(width: Dim().d16),
                     Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        STM().redirect2page(
-                            ctx, SellPageFinal(details: widget.details));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dim().d8),
-                          color: Color(0xffFF4124),
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(Dim().d12),
-                            child: Text('Sell / Cancel',
-                                style: Sty()
-                                    .mediumText
-                                    .copyWith(color: Clr().white)),
+                      child: InkWell(
+                        onTap: () {
+                          STM().redirect2page(
+                              ctx, SellPageFinal(details: widget.details));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dim().d8),
+                            color: Color(0xffFF4124),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(Dim().d12),
+                              child: Text('Sell / Cancel',
+                                  style: Sty()
+                                      .mediumText
+                                      .copyWith(color: Clr().white)),
+                            ),
                           ),
                         ),
                       ),
-                    )),
+                    ),
                   ],
                 )
               ],

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +137,7 @@ class _PortfolioState extends State<Portfolio> {
         ),
         body: RefreshIndicator(
           onRefresh: () {
-            return Future.delayed(Duration(seconds: 6), () {
+            return Future.delayed(Duration(seconds: 2), () {
               setState(() {
                 apiprotfolio(apiname: 'get_portfolio', type: 'get');
               });
@@ -307,7 +309,7 @@ class _PortfolioState extends State<Portfolio> {
                       ),
                       portfolioData['stock_trades'].isEmpty
                           ? SizedBox(
-                             height: MediaQuery.of(ctx).size.height / 2,
+                              height: MediaQuery.of(ctx).size.height / 2,
                               child: Center(
                                 child: Text('You do not have any Active orders',
                                     style: Sty()

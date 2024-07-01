@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -101,38 +103,43 @@ class _MyOrdersState extends State<MyOrders> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            Future.delayed(const Duration(seconds: 2), () {
-              apitype(apiname: 'my_orders', type: 'get');
+            Future.delayed(Duration(seconds: 2), () {
+              setState(() {
+                apitype(apiname: 'my_orders', type: 'get');
+              });
             });
           },
-          child: Padding(
-            padding: EdgeInsets.all(Dim().d16),
-            child: ordersList.isEmpty
-                ? check
-                    ? SizedBox(
-                        height: MediaQuery.of(ctx).size.height / 1.5,
-                        child: Center(
-                          child: Text("You haven't placed any orders yet",
-                              style: Sty()
-                                  .mediumBoldText
-                                  .copyWith(color: Clr().white)),
-                        ),
-                      )
-                    : Container()
-                : ListView.separated(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: ordersList.length,
-                    itemBuilder: (ctx, index) {
-                      return cardLayout(ctx, ordersList[index]);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: Dim().d12,
-                      );
-                    },
-                  ),
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.all(Dim().d16),
+              child: ordersList.isEmpty
+                  ? check
+                      ? SizedBox(
+                          height: MediaQuery.of(ctx).size.height / 1.5,
+                          child: Center(
+                            child: Text("You haven't placed any orders yet",
+                                style: Sty()
+                                    .mediumBoldText
+                                    .copyWith(color: Clr().white)),
+                          ),
+                        )
+                      : Container()
+                  : ListView.separated(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: ordersList.length,
+                      itemBuilder: (ctx, index) {
+                        return cardLayout(ctx, ordersList[index]);
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: Dim().d12,
+                        );
+                      },
+                    ),
+            ),
           ),
         ),
       ),

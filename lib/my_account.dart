@@ -358,7 +358,7 @@ class _MyAccountState extends State<MyAccount> {
                                         ),
                                         Text(
                                           profileList['kycs'].isEmpty
-                                              ? ''
+                                              ? '___'
                                               : '${profileList['kycs'][0]['number']}',
                                           style: Sty()
                                               .smallText
@@ -1002,7 +1002,7 @@ class _MyAccountState extends State<MyAccount> {
               ),
               InkWell(
                 onTap: () {
-                  showDialog(                      
+                  showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
